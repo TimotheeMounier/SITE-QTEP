@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTEP-Network</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-size: 24px;
+            flex: 1;
+            text-align: center;
+        }
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .menu:hover .dropdown-content {
+            display: block;}
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content h2 {
+            font-size: 28px;
+            margin: 20px 0;
+        }
+        .content p {
+            font-size: 18px;
+            color: #555;
+        }
+        .content img {
+            max-width: 300%;
+            height:auto;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">
+            Network QTEP - Suivi des promotions, stages et conseils
+        </div>
+        <div class="menu">
+            <button class="menu-button">Menu</button>
+            <div class="dropdown-content">
+                <a href="Untitled-1.html">Accueil</a>
+            <a href="suivi.html">Suivi des Promotions</a>
+            <a href="conseils.html">Conseils Carrière</a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h2>Bienvenue sur le réseau QTEP</h2>
+        <p>Retrouvez ici le suivi de carrière des anciens élèves, leurs promotions et leurs expériences.</p>
+        <img src="banniere.jpg" alt="Image de bienvenue">
+    </div>
+</body>
+</html>

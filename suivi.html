@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi des Promotions</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-size: 24px;
+            flex: 1;
+            text-align: center;
+        }
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+        .menu-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 40px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .menu:hover .dropdown-content {
+            display: block;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content h2 {
+            font-size: 28px;
+            margin: 20px 0;
+        }
+        .promotion {
+            margin-bottom: 20px;
+        }
+        .promotion h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .person {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .person strong {
+            color: #e74c3c;
+        }
+        .person em {
+            color: #555;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #c0392b;
+        }
+        .promotion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    margin-bottom: 20px;
+}
+
+.promotion-title {
+    width: 100%; 
+    text-align: left; 
+    margin-bottom: 10px;
+}
+
+.person-list {
+    list-style-type: disc;
+    padding-left: 20px; 
+    margin: 0;
+    width: 100%; 
+    text-align: left;
+}
+
+.person-list li {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+#map {
+            height: 300px;
+            width: 100%;
+        }
+        #search-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #suggestions {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+        #suggestions li {
+            padding: 5px 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        #suggestions li:hover {
+            background: #f1f1f1;
+        }
+        .map-container {
+            width: 600px; 
+            margin: 20px auto; 
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-title">
+        Suivi des Promotions - Network QTEP
+    </div>
+    <div class="menu">
+        <button class="menu-button">Menu</button>
+        <div class="dropdown-content">
+            <a href="Untitled-1.html">Accueil</a>
+            <a href="suivi.html">Suivi des Promotions</a>
+            <a href="conseils.html">Conseils Carrière</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <h2>Liste des Promotions</h2>
+
+    <div class="promotion">
+        <div class="promotion-title">
+            <h3>Promotion 2025 : Mikhail Lukin</h3>
+        </div>
+        <ul class="person-list">
+            <li>
+                <strong>Jelil Belheine</strong> - PFE in group of Sylvain Gigan : <em>Generating Entangled Photons Through Non-Classical Raman Processes for Quantum
+                    Imaging</em> 
+            </li>
+            <li>
+                <strong>Timothée Mounier</strong> - PFE in group of Gregor Weihs : <em>Robust excitation and coherent control of quantum dots</em>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<h2>Carte des Promotions en France</h2>
+<div class="map-container">
+    <div id="map"></div>
+</div>
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialiser la carte centrée sur la France
+    const map = L.map('map').setView([46.603354, 1.888334], 6);
+
+    // Ajouter une couche de tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Données statiques des villes et des résidents
+    const cities = [
+        {
+            name: "Paris",
+            lat: 48.8566,
+            lng: 2.3522,
+            residents: ["Jelil Belheine (LKB Sylvain Gigan Group - Lukhin Promotion)"]
+        },
+        {
+            name: "Innsbruck",
+            lat: 47.259659,
+            lng: 11.400375,
+            residents: ["Timothée Mounier (University of Innsbruck Gregor Weihs Group - Lukhin Promotion)"]
+        },
+        {
+            name: "Amsterdam",
+            lat: 52.370216,
+            lng: 4.895168,
+            residents: ["Benoit Brouillet (University of Amsterdam Florian Schrenk Group - Lukhin Promotion)"]
+        },
+        {
+            name: "Paris",
+            lat: 48.8566,
+            lng: 2.3522,
+            residents: ["Marie Taouzinet (Pasqal)"]
+        },
+        {
+            name: "Paris",
+            lat: 48.8566,
+            lng: 2.3522,
+            residents: ["Nathan Grillet Niess Syrte -Obsevatoire de Paris"]
+        }
+
+
+
+        // Ajoutez d'autres villes et résidents ici
+    ];
+
+    
+    cities.forEach(city => {
+        const marker = L.marker([city.lat, city.lng])
+            .addTo(map)
+            .bindPopup(`<b>${city.name}</b><br>Personnes : ${city.residents.join(', ')}`);
+
+        marker.on('click', function() {
+            marker.openPopup();
+        });
+    });
+</script>
+
+
+</body>
+</html>
