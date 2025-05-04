@@ -261,6 +261,33 @@
     <footer>
         &copy; 2025 Network QTEP - Tous droits réservés
     </footer>
-
+    <script>
+        // Ajout d'une animation simple au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '1';
+            
+            // Gestion du menu pour qu'il reste ouvert au clic
+            const menuButton = document.querySelector('.menu-button');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            menuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdownContent.classList.toggle('dropdown-active');
+            });
+            
+            // Fermer le menu quand on clique ailleurs
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.menu')) {
+                    dropdownContent.classList.remove('dropdown-active');
+                }
+            });
+            
+            // Empêcher la fermeture du menu au clic sur ses éléments
+            dropdownContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>
