@@ -4,29 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QTEP-Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
         }
+        
         .header {
             background-color: #333;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
+        
         .header-title {
             font-size: 24px;
-            flex: 1;
-            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        
+        .header-title i {
+            color: #e74c3c; 
+        }
+        
         .menu {
             position: relative;
             display: inline-block;
         }
+        
         .menu-button {
             background-color: #e74c3c;
             color: white;
@@ -34,46 +49,190 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
+        
+        .menu-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             z-index: 1;
             right: 0;
-            top: 40px;
+            top: 45px;
+            border-radius: 4px;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
         }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .dropdown-content a {
-            color: black;
+            color: #333;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
+        
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: #f5f5f5;
+            color: #e74c3c;
+            padding-left: 20px;
         }
+        
         .menu:hover .dropdown-content {
-            display: block;}
+            display: block;
+        }
+        
         .content {
-            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
             text-align: center;
+            animation: fadeUp 0.8s ease;
         }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .content h2 {
-            font-size: 28px;
-            margin: 20px 0;
+            font-size: 32px;
+            margin: 0 0 20px;
+            color: #333;
+            position: relative;
+            display: inline-block;
         }
+        
+        .content h2:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: #e74c3c;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
         .content p {
             font-size: 18px;
             color: #555;
-        }
-        .content img {
-            max-width: 300%;
-            height:auto;
-            margin-top: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
         
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .welcome-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .content img:hover {
+            transform: scale(1.02);
+        }
+        
+        .linkedin-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #0077b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        
+        .linkedin-link:hover {
+            background-color: #005d8f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .linkedin-link i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .welcome-container {
+                padding: 20px 15px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+
+            .dropdown-content {
+                width: 100%;
+                right: 0;
+                left: 0;
+                top: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -84,16 +243,24 @@
         <div class="menu">
             <button class="menu-button">Menu</button>
             <div class="dropdown-content">
-                <a href="site.html">Accueil</a>
-            <a href="suivi.html">Suivi des Promotions</a>
-            <a href="conseils.html">Conseils Carrière</a>
+                <a href="site.html"><i class="fas fa-home"></i> Accueil</a>
+                <a href="suivi.html"><i class="fas fa-user-graduate"></i> Suivi des Promotions</a>
+                <a href="conseils.html"><i class="fas fa-lightbulb"></i> Conseils Carrière</a>
             </div>
         </div>
+    </div>
     </div>
     <div class="content">
         <h2>Bienvenue sur le réseau QTEP</h2>
         <p>Retrouvez ici le suivi de carrière des anciens élèves, leurs promotions et leurs expériences.</p>
         <img src="banniere.jpg" alt="Image de bienvenue">
+        <div>
+            <a href="https://www.linkedin.com/groups/12345678/" class="linkedin-link">Rejoignez notre groupe LinkedIn</a>
+        </div>
     </div>
+    <footer>
+        &copy; 2025 Network QTEP - Tous droits réservés
+    </footer>
+
 </body>
 </html>

@@ -8,30 +8,46 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
         }
+        
         .header {
             background-color: #333;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
+        
         .header-title {
             font-size: 24px;
-            flex: 1;
-            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        
+        .header-title i {
+            color: #e74c3c; 
+        }
+        
         .menu {
             position: relative;
             display: inline-block;
         }
+        
         .menu-button {
             background-color: #e74c3c;
             color: white;
@@ -39,54 +55,189 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
+        
+        .menu-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             z-index: 1;
             right: 0;
-            top: 40px;
+            top: 45px;
+            border-radius: 4px;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
         }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .dropdown-content a {
-            color: black;
+            color: #333;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
+        
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: #f5f5f5;
+            color: #e74c3c;
+            padding-left: 20px;
         }
+        
         .menu:hover .dropdown-content {
             display: block;
         }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .content {
-            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
             text-align: center;
+            animation: fadeUp 0.8s ease;
         }
+        
         .content h2 {
-            font-size: 28px;
-            margin: 20px 0;
+            font-size: 32px;
+            margin: 0 0 20px;
+            color: #333;
+            position: relative;
+            display: inline-block;
         }
+        
+        .content h2:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: #e74c3c;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .content p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .welcome-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .content img:hover {
+            transform: scale(1.02);
+        }
+        
+        .linkedin-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #0077b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        
+        .linkedin-link:hover {
+            background-color: #005d8f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .linkedin-link i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        
         .promotion {
             margin-bottom: 20px;
         }
+        
         .promotion h3 {
             font-size: 22px;
             margin-bottom: 10px;
         }
+        
         .person {
             margin-bottom: 15px;
             font-size: 18px;
         }
+        
         .person strong {
             color: #e74c3c;
         }
+        
         .person em {
             color: #555;
         }
+        
         a {
             display: inline-block;
             margin-top: 20px;
@@ -96,206 +247,992 @@
             text-decoration: none;
             border-radius: 5px;
         }
+        
         a:hover {
             background-color: #c0392b;
         }
+        
         .promotion {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; 
-    margin-bottom: 20px;
-}
-
-.promotion-title {
-    width: 100%; 
-    text-align: left; 
-    margin-bottom: 10px;
-}
-
-.person-list {
-    list-style-type: disc;
-    padding-left: 20px; 
-    margin: 0;
-    width: 100%; 
-    text-align: left;
-}
-
-.person-list li {
-    margin-bottom: 15px;
-    font-size: 18px;
-}
-#map {
-            height: 300px;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; 
+            margin-bottom: 20px;
         }
-        #search-container {
-            margin: 20px 0;
-            text-align: center;
+        
+        .promotion-title {
+            width: 100%; 
+            text-align: left; 
+            margin-bottom: 10px;
         }
-        #suggestions {
-            list-style-type: none;
-            padding: 0;
-            margin: 10px 0 0 0;
+        
+        .person-list {
+            list-style-type: disc;
+            padding-left: 20px; 
+            margin: 0;
+            width: 100%; 
+            text-align: left;
         }
-        #suggestions li {
-            padding: 5px 10px;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            cursor: pointer;
+        
+        .person-list li {
+            margin-bottom: 15px;
+            font-size: 18px;
         }
-        #suggestions li:hover {
-            background: #f1f1f1;
-        }
+        
         .map-container {
-            width: 600px; 
+            width: 800px; 
             margin: 20px auto; 
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        
         #map {
-            height: 300px;
+            height: 500px;
             width: 100%;
         }
+        
+        .filters {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 20px auto;
+            width: 800px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        select, button {
+            padding: 8px 12px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #c0392b;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 15px;
+            }
+            
+            .welcome-container {
+                padding: 20px 15px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+
+            .dropdown-content {
+                width: 100%;
+                right: 0;
+                left: 0;
+                top: 40px;
+            }
+            .map-container,
+            .filters {
+                width: 100%;
+                max-width: 100%;
+            }
+            .job-history-btn {
+                background: #f0f0f0;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+                padding: 2px 5px;
+                margin: 5px 0;
+                font-size: 0.8em;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .job-history-btn:hover {
+                background: #e0e0e0;
+            }
+
+            .job-history {
+                background: #f9f9f9;
+                border-left: 3px solid #ddd;
+                padding: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                max-height: 120px;
+                overflow-y: auto;
+            }
+
+            /* Timeline styling for job history */
+            .job-history ul {
+                position: relative;
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .job-history ul::before {
+                content: '';
+                position: absolute;
+                left: 10px;
+                top: 0;
+                height: 100%;
+                width: 2px;
+                background: #ddd;
+            }
+
+            .job-history ul li {
+                position: relative;
+                padding-left: 30px;
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+            }
+
+            .job-history ul li::before {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #fff;
+                border: 2px solid #3498db;
+            }
+
+            /* Custom popup styling */
+            .leaflet-popup-content {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+}
     </style>
 </head>
 <body>
-
-<div class="header">
-    <div class="header-title">
-        Suivi des Promotions - Network QTEP
-    </div>
-    <div class="menu">
-        <button class="menu-button">Menu</button>
-        <div class="dropdown-content">
-            <a href="site.html">Accueil</a>
-            <a href="suivi.html">Suivi des Promotions</a>
-            <a href="conseils.html">Conseils Carrière</a>
+    <div class="header">
+        <div class="header-title">
+            <i class="fas fa-user-graduate"></i>
+            Network QTEP - Suivi des promotions, stages et conseils
+        </div>
+        <div class="menu">
+            <button class="menu-button">Menu</button>
+            <div class="dropdown-content">
+                <a href="site.html"><i class="fas fa-home"></i> Accueil</a>
+                <a href="suivi.html"><i class="fas fa-user-graduate"></i> Suivi des Promotions</a>
+                <a href="conseils.html"><i class="fas fa-lightbulb"></i> Conseils Carrière</a>
+            </div>
         </div>
     </div>
-</div>
 
-
-<div class="content">
-    <h2>Liste des Promotions</h2>
-
-    <div class="promotion">
-        <div class="promotion-title">
-            <h3>Promotion 2025 : Mikhail Lukin</h3>
-        </div>
-        <ul class="person-list">
-            <li>
-                <strong>Jelil Belheine</strong> - Master Thesis in group of Sylvain Gigan at LKB - ENS : <em>Generating Entangled Photons Through Non-Classical Raman Processes for Quantum
-                    Imaging</em> 
-            </li>
-            <li>
-                <strong>Timothée Mounier</strong> - Master Thesis in group of Gregor Weihs at University of Innsbruck : <em>Robust excitation and coherent control of quantum dots</em>
-            </li>
-            <li>
-                <strong>Pierre Armand Barbieri</strong> - Master Thesis in group of Morten Kjaegaard at Niels Bohr Institute
-            </li>
-            <li>
-             <strong>Adan Castillo Guerrero</strong> - Master Thesis at Institut Néel  
-            </li>
+    <div class="content">
+        <h2>Suivi des Promotions</h2>
         
+        <!-- Filtres -->
+        <div class="filters">
+            <div class="filter-group">
+                <div class="filter-title">Afficher sur la carte:</div>
+                <select id="location-type-filter">
+                    <option value="thesis">Lieux des Master Thesis</option>
+                    <option value="job">Lieux de travail actuels</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-title">Filtrer par promotion:</div>
+                <select id="promotion-filter">
+                    <option value="all">Toutes les promotions</option>
+                    <option value="2025">Promotion 2025</option>
+                    <option value="2024">Promotion 2024</option>
+                    <option value="2023">Promotion 2023</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-title">Filtrer par emploi actuel:</div>
+                <select id="job-filter">
+                    <option value="all">Tous les emplois</option>
+                    <option value="researcher">Chercheur</option>
+                    <option value="engineer">Ingénieur</option>
+                    <option value="consultant">Consultant</option>
+                    <option value="phd">Doctorant</option>
+                </select>
+            </div>
+            
+            <button id="apply-filters">Appliquer les filtres</button>
+            <button id="reset-filters">Réinitialiser</button>
+        </div>
 
-        </ul>
+        <!-- Carte -->
+        <h2>Carte des Promotions</h2>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+        <!-- Légende -->
+        <div class="legend">
+            <p><strong>Légende :</strong></p>
+            <p>Les marqueurs représentent les emplacements géographiques selon le mode d'affichage sélectionné :</p>
+            <ul style="text-align: left; padding-left: 40px;">
+                <li><strong>Lieux des Master Thesis</strong> : Où les étudiants ont effectué leur projet de fin d'études</li>
+                <li><strong>Lieux de travail actuels</strong> : Où les anciens étudiants travaillent actuellement</li>
+            </ul>
+            <p>Cliquez sur un marqueur pour voir les détails des personnes à cet endroit.</p>
+        </div>
+
+        <!-- Liste des promotions -->
+        <h2>Liste des Promotions</h2>
+        <div id="promotions-list">
+            <!-- Les promotions seront générées dynamiquement ici -->
+        </div>
     </div>
-</div>
 
-<h2>Carte des Promotions en France</h2>
-<div class="map-container">
-    <div id="map"></div>
-</div>
+    <script>
+        // Définir des noms pour chaque promotion
+const promotionNames = {
+    "2025": "Promotion Mikhail Lukhin",
+    "2024": "Promotion Jay Gambetta",
+    "2023": "Promotion Alain Aspect"
+};
 
+// Structure de données complète pour les personnes
+const people = [
+    {
+        name: "Jelil Belheine",
+        promotion: "2025",
+        thesisType: "Academic",
+        thesisTitle: "Generating Entangled Photons Through Non-Classical Raman Processes for Quantum Imaging",
+        thesisInstitution: "LKB-ENS",
+        thesisCity: "Paris",
+        thesisCountry: "France",
+        thesisLat: 48.8566,
+        thesisLng: 2.3522,
+        currentJob: "",
+        jobTitle: "",
+        company: "",
+        jobCity: "Paris",
+        jobCountry: "France",
+        jobLat: 48.8566,
+        jobLng: 2.3522,
+        jobHistory: [
+            { year: 2025, job: "_", company: "-", city: "-", country: "-" }
+        ]
+    },
+    {
+        name: "Timothée Mounier",
+        promotion: "2025",
+        thesisType: "Academic",
+        thesisTitle: "Robust excitation and coherent control of quantum dots",
+        thesisInstitution: "University of Innsbruck",
+        thesisCity: "Innsbruck",
+        thesisCountry: "Autriche",
+        thesisLat: 47.269211,
+        thesisLng: 11.404102,
+        currentJob: "engineer",
+        jobTitle: "Ingénieur logiciel",
+        company: "Tech Solutions",
+        jobCity: "Innsbruck",
+        jobCountry: "Autriche",
+        jobLat: 47.259659,
+        jobLng: 11.400375,
+        jobHistory: [
+            { year: 2025, job: "Ingénieur logiciel", company: "Tech Solutions", city: "Innsbruck", country: "Autriche" }
+        ]
+    },
+    {
+        name: "Pierre Armand Barbieri",
+        promotion: "2025",
+        thesisType: "Academic",
+        thesisTitle: "",
+        thesisInstitution: "Institut Niels Bohr",
+        thesisCity: "Copenhague",
+        thesisCountry: "danemark",
+        thesisLat: 55.675758,
+        thesisLng: 12.569020,
+        currentJob: "phd",
+        jobTitle: "Doctorant",
+        company: "Université d'Amsterdam",
+        jobCity: "Amsterdam",
+        jobCountry: "Pays-Bas",
+        jobLat: 52.370216,
+        jobLng: 4.895168,
+        jobHistory: [
+            { year: 2025, job: "Doctorant", company: "Université d'Amsterdam", city: "Amsterdam", country: "Pays-Bas" }
+        ]
+    },
+    {
+        name: "Adan Castillo Guerrero",
+        promotion: "2025",
+        thesisType: "Academic",
+        thesisTitle: "",
+        thesisInstitution: "Institut Néel",
+        thesisCity: "Grenoble",
+        thesisCountry: "France",
+        thesisLat: 45.188530,
+        thesisLng: 5.724524
+    },
+    
+    // Exemples pour les promotions antérieures
+    {
+        name: "Personne 5",
+        promotion: "2024",
+        thesisType: "group",
+        thesisTitle: "Master Thesis in group",
+        thesisInstitution: "INSA Lyon",
+        thesisCity: "Lyon",
+        thesisCountry: "France",
+        thesisLat: 45.7578,
+        thesisLng: 4.8320,
+        currentJob: "engineer",
+        jobTitle: "Ingénieur R&D",
+        company: "TechLabs",
+        jobCity: "Lyon",
+        jobCountry: "France",
+        jobLat: 45.7578,
+        jobLng: 4.8320,
+        jobHistory: [
+            { year: 2024, job: "Stagiaire", company: "TechLabs", city: "Lyon", country: "France" },
+            { year: 2025, job: "Ingénieur R&D", company: "TechLabs", city: "Lyon", country: "France" }
+        ]
+    },
+    {
+        name: "Personne 6",
+        promotion: "2023",
+        thesisType: "standard",
+        thesisTitle: "Master Thesis",
+        thesisInstitution: "Université de Genève",
+        thesisCity: "Genève",
+        thesisCountry: "Suisse",
+        thesisLat: 46.2044,
+        thesisLng: 6.1432,
+        currentJob: "phd",
+        jobTitle: "Doctorant",
+        company: "ETH Zurich",
+        jobCity: "Zurich",
+        jobCountry: "Suisse",
+        jobLat: 47.3769,
+        jobLng: 8.5417,
+        jobHistory: [
+            { year: 2023, job: "Assistant de recherche", company: "Université de Zurich", city: "Zurich", country: "Suisse" },
+            { year: 2024, job: "Doctorant", company: "ETH Zurich", city: "Zurich", country: "Suisse" },
+            { year: 2025, job: "Doctorant", company: "ETH Zurich", city: "Zurich", country: "Suisse" }
+        ]
+    }
+];
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-<script>
-   const map = L.map('map').setView([48.8566, 2.3522], 5); 
-
+// Initialisation de la carte
+const map = L.map('map').setView([48.8566, 2.3522], 4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+// Créer les groupes de marqueurs par promotion pour un affichage personnalisé
+let markers = L.markerClusterGroup();
+let markersByPromotion = {
+    "2025": L.markerClusterGroup(),
+    "2024": L.markerClusterGroup(),
+    "2023": L.markerClusterGroup()
+};
 
+// Définir des couleurs différentes pour chaque promotion
+const promotionColors = {
+    "2025": "#e74c3c", // Rouge
+    "2024": "#3498db", // Bleu
+    "2023": "#2ecc71"  // Vert
+};
 
-    const cities = [
-        {
-            name: "Paris",
-            lat: 48.8566,
-            lng: 2.3522,
-            residents: ["Jelil Belheine (LKB Sylvain Gigan Group - Lukhin Promotion)"]
-        },
-        {
-            name: "Innsbruck",
-            lat: 47.259659,
-            lng: 11.400375,
-            residents: ["Timothée Mounier (University of Innsbruck Gregor Weihs Group - Lukhin Promotion)"]
-        },
-        {
-            name: "Amsterdam",
-            lat: 52.370216,
-            lng: 4.895168,
-            residents: ["Benoit Brouillet (University of Amsterdam Florian Schrenk Group - Lukhin Promotion)"]
-        },
-        {
-            name: "Paris",
-            lat: 48.8566,
-            lng: 2.3522,
-            residents: ["Marie Taouzinet (Pasqal)"]
-        },
-        {
-            name: "Paris",
-            lat: 48.8566,
-            lng: 2.3522,
-            residents: ["Nathan Grillet Niess Syrte -Observatoire de Paris"]
-        },
-        {
-            name: "Sherbrooke",
-            lat: 45.404476,
-            lng: -71.888351,
-            residents: ["Tom Thinel - Université de Sherbrooke"]
-        },
-        {
-            name: "Toulouse",
-            lat: 43.600000,
-            lng: 1.433333,
-            residents: ["Aurélien Argy  - Thales Alenia Space"]
-        },
-        {
-            name: "Toulouse",
-            lat: 43.600000,
-            lng: 1.433333,
-            residents: ["Philippe Nedejlkovic  - LCAR"]
-        },
-        {
-            name: "Grenoble",
-            lat: 45.171547, 
-            lng: 5.722387,
-            residents: ["Adan Catsillo Guerrero - Institut Néel"]
-        },
-        {
-            name: "Copenhague",
-            lat: 55.676098,
-            lng: 12.568337,
-            residents: ["Pierre-Armand Barbieri - Niels Bohr Institue"]
-        },
+// Configuration des filtres actuels
+let currentFilters = {
+    locationType: "thesis", // Par défaut, on affiche les lieux de Master Thesis
+    promotion: "all",
+    job: "all"
+};
 
-        
-    ];
-
+// Personnaliser les marqueurs par promotion
+function createCustomMarker(lat, lng, promotion) {
+    const defaultIcon = new L.Icon.Default();
     
-    const markers = L.markerClusterGroup();
+    // Si nous avons une couleur définie pour cette promotion
+    if (promotionColors[promotion]) {
+        const markerHtmlStyles = `
+            background-color: ${promotionColors[promotion]};
+            width: 2rem;
+            height: 2rem;
+            display: block;
+            left: -1rem;
+            top: -1rem;
+            position: relative;
+            border-radius: 2rem 2rem 0;
+            transform: rotate(45deg);
+            border: 1px solid #FFFFFF`;
 
-    cities.forEach(city => {
-        const marker = L.marker([city.lat, city.lng])
-            .bindPopup(`<b>${city.name}</b><br>Personnes :<br>${city.residents.join('<br>')}`);
-        markers.addLayer(marker);
+        const icon = L.divIcon({
+            className: "custom-marker-" + promotion,
+            iconAnchor: [0, 24],
+            labelAnchor: [-6, 0],
+            popupAnchor: [0, -36],
+            html: `<span style="${markerHtmlStyles}" />`
+        });
+        
+        return L.marker([lat, lng], { icon: icon });
+    }
+    
+    return L.marker([lat, lng]);
+}
+
+// Fonction pour mettre à jour la carte selon les filtres
+function updateMap() {
+    // Supprimer les marqueurs existants
+    markers.clearLayers();
+    Object.values(markersByPromotion).forEach(group => group.clearLayers());
+    
+    // Déterminer s'il faut afficher les lieux de thèse ou de travail
+    const showThesisLocations = currentFilters.locationType === "thesis";
+    
+    // Filtrer les personnes selon les critères
+    const filteredPeople = people.filter(person => {
+        const matchPromotion = currentFilters.promotion === "all" || person.promotion === currentFilters.promotion;
+        const matchJob = currentFilters.job === "all" || person.currentJob === currentFilters.job;
+        
+        return matchPromotion && matchJob;
     });
+    
+    // Créer une structure pour regrouper les personnes par lieu et par promotion
+    const locationGroups = {};
+    
+    // Ajouter les nouveaux marqueurs selon le type de localisation choisi
+    filteredPeople.forEach(person => {
+        const lat = showThesisLocations ? person.thesisLat : person.jobLat;
+        const lng = showThesisLocations ? person.thesisLng : person.jobLng;
+        const city = showThesisLocations ? person.thesisCity : person.jobCity;
+        const country = showThesisLocations ? person.thesisCountry : person.jobCountry;
+        const locationKey = `${lat},${lng}`;
+        
+        // Regrouper les personnes par localisation
+        if (!locationGroups[locationKey]) {
+            locationGroups[locationKey] = {
+                city: city,
+                country: country,
+                lat: lat,
+                lng: lng,
+                people: []
+            };
+        }
+        
+        locationGroups[locationKey].people.push(person);
+    });
+    
+    // Ajouter les marqueurs pour chaque lieu et séparés par promotion
+    Object.values(locationGroups).forEach(location => {
+        // Regrouper les personnes de ce lieu par promotion
+        const peopleByPromotion = {};
+        location.people.forEach(person => {
+            if (!peopleByPromotion[person.promotion]) {
+                peopleByPromotion[person.promotion] = [];
+            }
+            peopleByPromotion[person.promotion].push(person);
+        });
+        
+        // Créer un pop-up par promotion pour ce lieu
+        Object.entries(peopleByPromotion).forEach(([promotion, promotionPeople]) => {
+            let popupContent = `<div style="border-left: 5px solid ${promotionColors[promotion] || '#888'}; padding-left: 10px;">`;
+            popupContent += `<b>${location.city}, ${location.country}</b>`;
+            popupContent += `<br><strong>${promotionNames[promotion] || `Promotion ${promotion}`}</strong><hr>`;
+            
+            promotionPeople.forEach(person => {
+                if (showThesisLocations) {
+                    popupContent += `
+                        <b>${person.name}</b><br>
+                        <em>${person.thesisTitle || "Master Thesis"}</em><br>
+                        Institution: ${person.thesisInstitution}<br>
+                        ${person.jobTitle ? `<small>Actuellement: ${person.jobTitle} - ${person.company}</small><br>` : ''}
+                        <hr>
+                    `;
+                } else {
+                    popupContent += `
+                        <b>${person.name}</b><br>
+                        <em>${person.jobTitle || "En recherche d'emploi"}</em><br>
+                        ${person.company ? `Entreprise: ${person.company}<br>` : ''}
+                        <small>Master Thesis: ${person.thesisInstitution}, ${person.thesisCity}</small><br>
+                        <hr>
+                    `;
+                }
+            });
+            
+            popupContent = popupContent.replace(/<hr>$/, '</div>');
+            
+            // Créer un marqueur personnalisé pour cette promotion
+            const marker = createCustomMarker(location.lat, location.lng, promotion)
+                .bindPopup(popupContent);
+                
+            // Ajouter au groupe de marqueurs correspondant à la promotion
+            if (markersByPromotion[promotion]) {
+                markersByPromotion[promotion].addLayer(marker);
+            } else {
+                markers.addLayer(marker);
+            }
+        });
+    });
+    
+    // Ajouter les groupes de marqueurs à la carte
+    if (currentFilters.promotion === "all") {
+        // Ajouter tous les groupes de promotion à la carte
+        Object.entries(markersByPromotion).forEach(([promotion, group]) => {
+            map.addLayer(group);
+        });
+    } else {
+        // Ajouter seulement le groupe de la promotion filtrée
+        if (markersByPromotion[currentFilters.promotion]) {
+            map.addLayer(markersByPromotion[currentFilters.promotion]);
+        }
+    }
+    
+    map.addLayer(markers); // Pour les marqueurs qui ne sont pas dans un groupe spécifique
+    
+    // Ajustement de la vue pour montrer tous les marqueurs si nécessaire
+    if (Object.keys(locationGroups).length > 0) {
+        const allMarkers = [];
+        Object.values(locationGroups).forEach(loc => {
+            allMarkers.push(L.marker([loc.lat, loc.lng]));
+        });
+        
+        const group = new L.featureGroup(allMarkers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+    
+    // Mettre à jour la liste des promotions affichées
+    updatePromotionsList(filteredPeople, showThesisLocations);
+}
 
-    map.addLayer(markers);
-</script>
+// Fonction pour mettre à jour la liste des promotions
+function updatePromotionsList(filteredPeople, showThesisLocations) {
+    const promotionsListDiv = document.getElementById('promotions-list');
+    promotionsListDiv.innerHTML = '';
+    
+    // Regrouper les personnes par promotion
+    const promotionGroups = {};
+    filteredPeople.forEach(person => {
+        if (!promotionGroups[person.promotion]) {
+            promotionGroups[person.promotion] = [];
+        }
+        promotionGroups[person.promotion].push(person);
+    });
+    
+    // Trier les promotions
+    const sortedPromotions = Object.keys(promotionGroups).sort((a, b) => b - a);
+    
+    // Créer les éléments HTML pour chaque promotion
+    sortedPromotions.forEach(promotionYear => {
+        const promotionDiv = document.createElement('div');
+        promotionDiv.className = 'promotion';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'promotion-title';
+        titleDiv.innerHTML = `<h3 style="color:${promotionColors[promotionYear] || '#333'}">
+            ${promotionNames[promotionYear] || `Promotion ${promotionYear}`}</h3>`;
+        promotionDiv.appendChild(titleDiv);
+        
+        const personList = document.createElement('ul');
+        personList.className = 'person-list';
+        
+        promotionGroups[promotionYear].forEach(person => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${person.name}</strong>${person.thesisTitle ? ` - ${person.thesisTitle}` : ''}<br>
+                <em>Master Thesis à ${person.thesisInstitution} (${person.thesisCity}, ${person.thesisCountry})</em><br>
+                ${person.jobTitle ? `<em>Emploi actuel: ${person.jobTitle} - ${person.company} (${person.jobCity}, ${person.jobCountry})</em>` : '<em>Aucune information</em>'}
+            `;
+            personList.appendChild(li);
+        });
+        
+        promotionDiv.appendChild(personList);
+        promotionsListDiv.appendChild(promotionDiv);
+    });
+    
+    // Message si aucun résultat
+    if (sortedPromotions.length === 0) {
+        promotionsListDiv.innerHTML = '<p>Aucun résultat trouvé avec les filtres actuels.</p>';
+    }
+}
 
+// Événements pour les filtres
+document.getElementById('apply-filters').addEventListener('click', function() {
+    currentFilters.locationType = document.getElementById('location-type-filter').value;
+    currentFilters.promotion = document.getElementById('promotion-filter').value;
+    currentFilters.job = document.getElementById('job-filter').value;
+    updateMap();
+});
+
+document.getElementById('reset-filters').addEventListener('click', function() {
+    document.getElementById('location-type-filter').value = "thesis";
+    document.getElementById('promotion-filter').value = "all";
+    document.getElementById('job-filter').value = "all";
+    
+    currentFilters.locationType = "thesis";
+    currentFilters.promotion = "all";
+    currentFilters.job = "all";
+    
+    updateMap();
+});
+
+// Ajout d'un événement pour le changement de type de localisation
+document.getElementById('location-type-filter').addEventListener('change', function() {
+    currentFilters.locationType = this.value;
+    updateMap();
+});
+
+// Initialiser la carte et la liste au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    // Mettre à jour les options du filtre de promotion pour inclure les noms
+    const promotionFilter = document.getElementById('promotion-filter');
+    promotionFilter.innerHTML = '<option value="all">Toutes les promotions</option>';
+    
+    Object.entries(promotionNames).forEach(([year, name]) => {
+        promotionFilter.innerHTML += `<option value="${year}">${name} (${year})</option>`;
+    });
+    
+    
+    // Ajouter la légende pour les couleurs des promotions
+    const legendDiv = document.createElement('div');
+    legendDiv.className = 'legend-colors';
+    legendDiv.innerHTML = '<p><strong>Promotions et leurs couleurs :</strong></p>';
+    
+    const colorsList = document.createElement('ul');
+    colorsList.style.listStyleType = 'none';
+    colorsList.style.paddingLeft = '20px';
+    
+    Object.entries(promotionColors).forEach(([year, color]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span style="display:inline-block; width:15px; height:15px; background-color:${color}; margin-right:10px;"></span> 
+                        ${promotionNames[year] || `Promotion ${year}`}`;
+        colorsList.appendChild(li);
+    });
+    
+    legendDiv.appendChild(colorsList);
+    document.querySelector('.legend').appendChild(legendDiv);
+    
+    updateMap();
+});
+
+// 1. Add the global toggleJobHistory function to make it accessible from the popup content
+// Add this outside of any other functions
+
+function toggleJobHistory(personName) {
+    const safeId = personName.replace(/\s+/g, '-').toLowerCase();
+    const historyDiv = document.getElementById(`job-history-${safeId}`);
+    const button = document.getElementById(`btn-${safeId}`);
+    
+    if (historyDiv.style.display === 'none') {
+        historyDiv.style.display = 'block';
+        button.textContent = 'Masquer parcours professionnel';
+    } else {
+        historyDiv.style.display = 'none';
+        button.textContent = 'Afficher parcours professionnel';
+    }
+}
+
+// 2. Expose the function to the global scope so it can be called from popup HTML
+window.toggleJobHistory = toggleJobHistory;
+
+// 3. Modify the updateMap function to include job history in popups
+// Replace the existing popup content generation in the updateMap function with this code:
+
+function updateMap() {
+    // Supprimer les marqueurs existants
+    markers.clearLayers();
+    Object.values(markersByPromotion).forEach(group => group.clearLayers());
+    
+    // Déterminer s'il faut afficher les lieux de thèse ou de travail
+    const showThesisLocations = currentFilters.locationType === "thesis";
+    
+    // Filtrer les personnes selon les critères
+    const filteredPeople = people.filter(person => {
+        const matchPromotion = currentFilters.promotion === "all" || person.promotion === currentFilters.promotion;
+        const matchJob = currentFilters.job === "all" || person.currentJob === currentFilters.job;
+        
+        return matchPromotion && matchJob;
+    });
+    
+    // Créer une structure pour regrouper les personnes par lieu et par promotion
+    const locationGroups = {};
+    
+    // Ajouter les nouveaux marqueurs selon le type de localisation choisi
+    filteredPeople.forEach(person => {
+        const lat = showThesisLocations ? person.thesisLat : person.jobLat;
+        const lng = showThesisLocations ? person.thesisLng : person.jobLng;
+        const city = showThesisLocations ? person.thesisCity : person.jobCity;
+        const country = showThesisLocations ? person.thesisCountry : person.jobCountry;
+        const locationKey = `${lat},${lng}`;
+        
+        // Regrouper les personnes par localisation
+        if (!locationGroups[locationKey]) {
+            locationGroups[locationKey] = {
+                city: city,
+                country: country,
+                lat: lat,
+                lng: lng,
+                people: []
+            };
+        }
+        
+        locationGroups[locationKey].people.push(person);
+    });
+    
+    // Ajouter les marqueurs pour chaque lieu et séparés par promotion
+    Object.values(locationGroups).forEach(location => {
+        // Regrouper les personnes de ce lieu par promotion
+        const peopleByPromotion = {};
+        location.people.forEach(person => {
+            if (!peopleByPromotion[person.promotion]) {
+                peopleByPromotion[person.promotion] = [];
+            }
+            peopleByPromotion[person.promotion].push(person);
+        });
+        
+        // Créer un pop-up par promotion pour ce lieu
+        Object.entries(peopleByPromotion).forEach(([promotion, promotionPeople]) => {
+            let popupContent = `<div style="border-left: 5px solid ${promotionColors[promotion] || '#888'}; padding-left: 10px;">`;
+            popupContent += `<b>${location.city}, ${location.country}</b>`;
+            popupContent += `<br><strong>${promotionNames[promotion] || `Promotion ${promotion}`}</strong><hr>`;
+            
+            promotionPeople.forEach(person => {
+                // Generate unique ID for this person
+                const personId = person.name.replace(/\s+/g, '-').toLowerCase();
+                
+                if (showThesisLocations) {
+                    popupContent += `
+                        <b>${person.name}</b><br>
+                        <em>${person.thesisTitle || "Master Thesis"}</em><br>
+                        Institution: ${person.thesisInstitution}<br>
+                        ${person.jobTitle ? `<small>Actuellement: ${person.jobTitle} - ${person.company}</small><br>` : ''}
+                    `;
+                    
+                    // Add job history if available
+                    if (person.jobHistory && person.jobHistory.length > 0) {
+                        popupContent += `
+                            <button onclick="toggleJobHistory('${person.name.replace(/'/g, "\\'")}')" class="job-history-btn" id="btn-${personId}">
+                                Afficher parcours professionnel
+                            </button>
+                            <div id="job-history-${personId}" class="job-history" style="display:none;">
+                                <ul>
+                        `;
+                        
+                        // Sort job history by year (most recent first)
+                        const sortedHistory = [...person.jobHistory].sort((a, b) => b.year - a.year);
+                        
+                        sortedHistory.forEach(job => {
+                            popupContent += `
+                                <li>
+                                    <strong>${job.year}</strong>: ${job.job} - ${job.company}, ${job.city}, ${job.country}
+                                </li>
+                            `;
+                        });
+                        
+                        popupContent += `
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } else {
+                    popupContent += `
+                        <b>${person.name}</b><br>
+                        <em>${person.jobTitle || "En recherche d'emploi"}</em><br>
+                        ${person.company ? `Entreprise: ${person.company}<br>` : ''}
+                        <small>Master Thesis: ${person.thesisInstitution}, ${person.thesisCity}</small><br>
+                    `;
+                    
+                    // Add job history if available
+                    if (person.jobHistory && person.jobHistory.length > 0) {
+                        popupContent += `
+                            <button onclick="toggleJobHistory('${person.name.replace(/'/g, "\\'")}')" class="job-history-btn" id="btn-${personId}">
+                                Afficher parcours professionnel
+                            </button>
+                            <div id="job-history-${personId}" class="job-history" style="display:none;">
+                                <ul>
+                        `;
+                        
+                        // Sort job history by year (most recent first)
+                        const sortedHistory = [...person.jobHistory].sort((a, b) => b.year - a.year);
+                        
+                        sortedHistory.forEach(job => {
+                            popupContent += `
+                                <li>
+                                    <strong>${job.year}</strong>: ${job.job} - ${job.company}, ${job.city}, ${job.country}
+                                </li>
+                            `;
+                        });
+                        
+                        popupContent += `
+                                </ul>
+                            </div>
+                        `;
+                    }
+                }
+                popupContent += `<hr>`;
+            });
+            
+            popupContent = popupContent.replace(/<hr>$/, '</div>');
+            
+            // Créer un marqueur personnalisé pour cette promotion
+            const marker = createCustomMarker(location.lat, location.lng, promotion)
+                .bindPopup(popupContent, { maxWidth: 300 });
+                
+            // Ajouter au groupe de marqueurs correspondant à la promotion
+            if (markersByPromotion[promotion]) {
+                markersByPromotion[promotion].addLayer(marker);
+            } else {
+                markers.addLayer(marker);
+            }
+        });
+    });
+    
+    // Ajouter les groupes de marqueurs à la carte
+    if (currentFilters.promotion === "all") {
+        // Ajouter tous les groupes de promotion à la carte
+        Object.entries(markersByPromotion).forEach(([promotion, group]) => {
+            map.addLayer(group);
+        });
+    } else {
+        // Ajouter seulement le groupe de la promotion filtrée
+        if (markersByPromotion[currentFilters.promotion]) {
+            map.addLayer(markersByPromotion[currentFilters.promotion]);
+        }
+    }
+    
+    map.addLayer(markers); // Pour les marqueurs qui ne sont pas dans un groupe spécifique
+    
+    // Ajustement de la vue pour montrer tous les marqueurs si nécessaire
+    if (Object.keys(locationGroups).length > 0) {
+        const allMarkers = [];
+        Object.values(locationGroups).forEach(loc => {
+            allMarkers.push(L.marker([loc.lat, loc.lng]));
+        });
+        
+        const group = new L.featureGroup(allMarkers);
+        map.fitBounds(group.getBounds().pad(0.1));
+    }
+    
+    // Mettre à jour la liste des promotions affichées
+    updatePromotionsList(filteredPeople, showThesisLocations);
+}
+
+// 4. Update the promotionsList function to also display job history
+function updatePromotionsList(filteredPeople, showThesisLocations) {
+    const promotionsListDiv = document.getElementById('promotions-list');
+    promotionsListDiv.innerHTML = '';
+    
+    // Regrouper les personnes par promotion
+    const promotionGroups = {};
+    filteredPeople.forEach(person => {
+        if (!promotionGroups[person.promotion]) {
+            promotionGroups[person.promotion] = [];
+        }
+        promotionGroups[person.promotion].push(person);
+    });
+    
+    // Trier les promotions
+    const sortedPromotions = Object.keys(promotionGroups).sort((a, b) => b - a);
+    
+    // Créer les éléments HTML pour chaque promotion
+    sortedPromotions.forEach(promotionYear => {
+        const promotionDiv = document.createElement('div');
+        promotionDiv.className = 'promotion';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'promotion-title';
+        titleDiv.innerHTML = `<h3 style="color:${promotionColors[promotionYear] || '#333'}">
+            ${promotionNames[promotionYear] || `Promotion ${promotionYear}`}</h3>`;
+        promotionDiv.appendChild(titleDiv);
+        
+        const personList = document.createElement('ul');
+        personList.className = 'person-list';
+        
+        promotionGroups[promotionYear].forEach(person => {
+            const personId = `sidebar-${person.name.replace(/\s+/g, '-').toLowerCase()}`;
+            
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${person.name}</strong>${person.thesisTitle ? ` - ${person.thesisTitle}` : ''}<br>
+                <em>Master Thesis à ${person.thesisInstitution} (${person.thesisCity}, ${person.thesisCountry})</em><br>
+                ${person.jobTitle ? `<em>Emploi actuel: ${person.jobTitle} - ${person.company} (${person.jobCity}, ${person.jobCountry})</em>` : '<em>Aucune information</em>'}
+            `;
+            
+            // Add job history to the sidebar list if available
+            if (person.jobHistory && person.jobHistory.length > 0) {
+                const jobHistoryBtn = document.createElement('button');
+                jobHistoryBtn.className = 'job-history-btn';
+                jobHistoryBtn.id = `btn-${personId}`;
+                jobHistoryBtn.textContent = 'Afficher parcours professionnel';
+                jobHistoryBtn.onclick = function() {
+                    const historyDiv = document.getElementById(`job-history-${personId}`);
+                    if (historyDiv.style.display === 'none') {
+                        historyDiv.style.display = 'block';
+                        this.textContent = 'Masquer parcours professionnel';
+                    } else {
+                        historyDiv.style.display = 'none';
+                        this.textContent = 'Afficher parcours professionnel';
+                    }
+                };
+                li.appendChild(jobHistoryBtn);
+                
+                const jobHistoryDiv = document.createElement('div');
+                jobHistoryDiv.id = `job-history-${personId}`;
+                jobHistoryDiv.className = 'job-history';
+                jobHistoryDiv.style.display = 'none';
+                
+                const historyList = document.createElement('ul');
+                
+                // Sort job history by year (most recent first)
+                const sortedHistory = [...person.jobHistory].sort((a, b) => b.year - a.year);
+                
+                sortedHistory.forEach(job => {
+                    const historyItem = document.createElement('li');
+                    historyItem.innerHTML = `<strong>${job.year}</strong>: ${job.job} - ${job.company}, ${job.city}, ${job.country}`;
+                    historyList.appendChild(historyItem);
+                });
+                
+                jobHistoryDiv.appendChild(historyList);
+                li.appendChild(jobHistoryDiv);
+            }
+            
+            personList.appendChild(li);
+        });
+        
+        promotionDiv.appendChild(personList);
+        promotionsListDiv.appendChild(promotionDiv);
+    });
+    
+    // Message si aucun résultat
+    if (sortedPromotions.length === 0) {
+        promotionsListDiv.innerHTML = '<p>Aucun résultat trouvé avec les filtres actuels.</p>';
+    }
+}
+    </script>
+    <footer>
+        &copy; 2025 Network QTEP - Tous droits réservés
+    </footer>
 
 </body>
 </html>
