@@ -6,12 +6,19 @@
     <title>QTEP-Network</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f9f9;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Pour s'assurer que body prend toute la hauteur de la fenêtre */
         }
         
         .header {
@@ -65,12 +72,13 @@
             background-color: white;
             min-width: 180px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            z-index: 1;
+            z-index: 100;
             right: 0;
             top: 45px;
             border-radius: 4px;
             overflow: hidden;
             animation: fadeIn 0.3s ease;
+            padding: 5px 0;
         }
         
         @keyframes fadeIn {
@@ -91,6 +99,8 @@
             display: block;
             transition: all 0.2s ease;
             font-weight: 500;
+            position: relative;
+            z-index: 10;
         }
         
         .dropdown-content a:hover {
@@ -99,8 +109,18 @@
             padding-left: 20px;
         }
         
+        /* Menu qui reste affiché au hover et quand on clique */
         .menu:hover .dropdown-content {
             display: block;
+        }
+        
+        /* Menu qui reste ouvert quand on clique sur le bouton */
+        .dropdown-active {
+            display: block !important;
+        }
+        
+        .main-wrapper {
+            flex: 1; /* Cette partie prendra tout l'espace disponible */
         }
         
         .content {
@@ -207,7 +227,7 @@
             text-align: center;
             padding: 15px;
             font-size: 14px;
-            margin-top: 40px;
+            margin-top: auto; /* Pousse le footer vers le bas */
         }
         
         @media (max-width: 768px) {
@@ -251,27 +271,51 @@
         </div>
     </div>
     
-    <div class="content">
-        <h2>Bienvenue sur le réseau QTEP</h2>
-        
-        <div class="welcome-container">
-            <p>Retrouvez ici le suivi de carrière des anciens élèves, leurs promotions et leurs expériences.</p>
-            <img src="banniere.jpg" alt="Image de bienvenue">
+    <div class="main-wrapper">
+        <div class="content">
+            <h2>Bienvenue sur le réseau QTEP</h2>
+            
+            <div class="welcome-container">
+                <p>Retrouvez ici le suivi de carrière des anciens élèves, leurs promotions et leurs expériences.</p>
+                <img src="banniere.jpg" alt="Image de bienvenue">
+            </div>
+            
+            <a href="https://www.linkedin.com/groups/13174646/" class="linkedin-link">
+                <i class="fab fa-linkedin"></i> Rejoignez notre groupe LinkedIn
+            </a>
         </div>
-        
-        <a href="https://www.linkedin.com/groups/13174646/" class="linkedin-link">
-            <i class="fab fa-linkedin"></i> Rejoignez notre groupe LinkedIn
-        </a>
     </div>
     
     <footer>
         &copy; 2025 Network QTEP - Tous droits réservés
     </footer>
-
+   
     <script>
         // Ajout d'une animation simple au chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
             document.body.style.opacity = '1';
+            
+            // Gestion du menu pour qu'il reste ouvert au clic
+            const menuButton = document.querySelector('.menu-button');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            menuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdownContent.classList.toggle('dropdown-active');
+            });
+            
+            // Fermer le menu quand on clique ailleurs
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.menu')) {
+                    dropdownContent.classList.remove('dropdown-active');
+                }
+            });
+            
+            // Empêcher la fermeture du menu au clic sur ses éléments
+            dropdownContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         });
     </script>
 </body>
