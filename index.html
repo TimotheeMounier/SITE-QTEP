@@ -110,14 +110,10 @@
         }
         
         /* Menu qui reste affiché au hover et quand on clique */
-        .menu:hover .dropdown-content {
-            display: block;
-        }
-        
-        /* Menu qui reste ouvert quand on clique sur le bouton */
-        .dropdown-active {
-            display: block !important;
-        }
+        .menu:hover .dropdown-content,
+.menu:focus-within .dropdown-content {
+    display: block;
+}
         
         .main-wrapper {
             flex: 1; /* Cette partie prendra tout l'espace disponible */
@@ -267,6 +263,7 @@
                 <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
                 <a href="suivi.html"><i class="fas fa-user-graduate"></i> Suivi des Promotions</a>
                 <a href="conseils.html"><i class="fas fa-lightbulb"></i> Conseils Carrière</a>
+                <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
             </div>
         </div>
     </div>

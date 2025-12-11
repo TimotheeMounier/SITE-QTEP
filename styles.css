@@ -105,3 +105,48 @@ footer p {
         font-size: 1.2em;
     }
 }
+.team-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: nowrap;   /* forces one horizontal line */
+    margin-top: 20px;
+}
+
+.team-card {
+    width: 170px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.team-card h3 {
+    font-size: 1em;
+    margin: 6px 0 4px 0;
+}
+
+.team-card p {
+    font-size: 0.85em;
+    margin: 3px 0;
+}
+
+.team-card a {
+    font-size: 0.8em;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.team-card a:hover {
+    text-decoration: underline;
+}
