@@ -298,51 +298,107 @@
 .team-card a:hover {
     text-decoration: underline;
 }
-    </style>
+
+
+.content ul {
+    list-style-type: disc;      /* Puces normales */
+    list-style-position: outside; /* Puces à l'extérieur */
+    padding-left: 20px;          /* Espace uniforme pour toutes les puces */
+    margin-left: 150px;
+}
+
+.content ul li {
+    margin-bottom: 10px;        /* Espace entre les items */
+    text-align: left;            /* Assure que le texte est aligné à gauche */
+}
+
+
+
+
+</style>
+
 </head>
 <body>
 
 <div class="header">
     <div class="header-title">
         <i class="fas fa-lightbulb"></i>
-        Conseils Carrière - Network QTEP
+        Conseils - Network QTEP
     </div>
     <div class="menu">
         <button class="menu-button">Menu</button>
         <div class="dropdown-content">
             <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
             <a href="suivi.html"><i class="fas fa-user-graduate"></i> Suivi des Promotions</a>
-            <a href="conseils.html"><i class="fas fa-lightbulb"></i> Conseils Carrière</a>
+            <a href="conseils.html"><i class="fas fa-lightbulb"></i> Conseils </a>
             <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
         </div>
     </div>
 </div>
 </div>
 
-<div class="content">
-    <h2>Conseils pour votre carrière</h2>
+<div class="advice-section">
 
-    <div class="advice">
-        <h3>1. Préparer son CV et sa lettre de motivation</h3>
-        <p>Assurez-vous que votre CV est clair, bien structuré et adapté à chaque poste. Une lettre de motivation personnalisée fait toujours la différence.</p>
+    <div class="content">
+        <h2>Offres de stage, thèses </h2>
+        <p>Ces quelques sites permettent de recenser les offres disponibles.</p>
+        <ul>
+           
+            <li>
+        En France, les masters de physique liés à l'École Normale Supérieure ou Université Paris Cité recensent une liste de sujets variés pour le stage de master 2  + thèse : 
+       <a href="https://stages.phys.ens.psl.eu/fr/Select" target="_blank" rel="noopener noreferrer">
+    Sujets de master recensés par l'ENS
+        </a>,
+    <br>
+        <a href="https://drive.google.com/drive/u/0/folders/1yVKJ1oY1OwkG0047-G-b3HGlfuhgSm5V" target="_blank" rel="noopener noreferrer">
+            Sujets de master recensés par Université Paris Cité
+        </a>
+
+    </li>
+        <li>
+        <a href="https://www.quantiki.org/" target="_blank" rel="noopener noreferrer">
+            Quantiki
+        </a> – Le site Quantiki recense les différents groupes dans le monde dans le domaine de l'informatique quantique et de l'optique quantique. Vous pourrez découvrir les groupes et contacter les professeurs pour des offres de stages/thèses.
+    
+    </li>
+    <li>
+        <a href="https://digiq.eu/track/database?tab=Internships" target="_blank" rel="noopener noreferrer">
+            DigiQ
+        </a> - Le réseau DigiQ propose une base de données d'offres de stages dans les universités partenaires en Europe.
+    </li>
     </div>
 
-    <div class="advice">
-        <h3>2. Se préparer aux entretiens</h3>
-        <p>Anticipez les questions courantes, préparez des exemples concrets de vos réalisations et entraînez-vous à parler de votre parcours.</p>
-    </div>
+    <div class="content">
+        <h2>Quelques conseils </h2>
 
-    <div class="advice">
-        <h3>3. Développer son réseau</h3>
-        <p>Utilisez LinkedIn et participez à des événements professionnels pour rencontrer des recruteurs et des professionnels de votre domaine.</p>
-    </div>
 
-    <div class="advice">
-        <h3>4. Se former en continu</h3>
-        <p>Restez à jour sur les dernières tendances de votre secteur en suivant des formations et en lisant des articles spécialisés.</p>
+        <ul>
+        <li>Parler aux <strong>thésards actuels</strong> du groupe (ambiance, charge, encadrement).</li>
+        <li>Contacter un <strong>ancien du groupe</strong> pour un retour honnête.</li>
+        <li>Regarder si un <strong>ancien de QTEP</strong> est passé par ce labo (contact facile, infos précises).</li>
+  <li>
+        S’abonner à la mailing list des <strong>Groupements De Recherches (GDR)</strong> (France) du domaine pour les annonces de conférences, postes, etc. 
+        (Ex : <a href="https://gdr-teq.cnrs.fr/" target="_blank" rel="noopener noreferrer">GDR TeQ</a>, <a href="http://gdr-howdi.org/?lang=en" target="_blank" rel="noopener noreferrer">GDR HOWDI</a>, etc)
+    </li>
+        <li>Lire quelques <strong>publications récentes</strong> du groupe pour vérifier l’activité réelle.</li>
+        <li>Vérifier la <strong>réputation du directeur</strong> : encadrement, présence, bienveillance.</li>
+    </ul>
     </div>
 
 </div>
+
+<script>
+let headers = document.getElementsByClassName("advice-header");
+
+for (let i = 0; i < headers.length; i++) {
+    headers[i].addEventListener("click", function() {
+        const next = this.nextElementSibling;
+        next.style.display = next.style.display === "block" ? "none" : "block";
+    });
+}
+</script>
+
+
 <footer>
     &copy; 2025 Network QTEP - Tous droits réservés
 </footer>
