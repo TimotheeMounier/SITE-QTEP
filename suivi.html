@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <style>
+        body { display: none; }
+    </style>
+    <script>
+        const password = "1234"; // change ici
+        const userPassword = prompt("Mot de passe requis :");
+
+        if (userPassword === password) {
+            // Bon mot de passe : afficher la page normalement
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.style.display = 'flex';
+            });
+        } else {
+            // Mauvais mot de passe : afficher "Accès refusé"
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%;font-family:sans-serif;'>Accès refusé</h1>";
+                document.body.style.display = 'block';
+            });
+        }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suivi des Promotions</title>
