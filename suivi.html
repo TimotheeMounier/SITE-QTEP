@@ -438,6 +438,10 @@
 
         /* ---------- Liste des promotions ---------- */
         .promo-block {
+            margin-bottom: 20px;
+        }
+
+        .promo-block[open] {
             margin-bottom: 40px;
         }
 
@@ -448,13 +452,40 @@
             flex-wrap: wrap;
             gap: 8px;
             border-bottom: 3px solid;
-            padding-bottom: 8px;
+            padding: 10px 4px 8px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+        .promo-header::-webkit-details-marker {
+            display: none;
+        }
+
+        .promo-header:hover {
+            background-color: #f0f0f0;
+        }
+
+        .promo-block[open] .promo-header {
             margin-bottom: 18px;
         }
 
         .promo-header h3 {
             margin: 0;
             font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .promo-header .chevron {
+            font-size: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .promo-block[open] .chevron {
+            transform: rotate(90deg);
         }
 
         .promo-header span {
@@ -1004,6 +1035,9 @@ function personCard(person) {
         </div>`;
 }
 
+// Promotions dépliées par le visiteur (gardées quand la liste est redessinée)
+const openYears = new Set();
+
 function renderList(people) {
     const container = document.getElementById('promotions-list');
     const html = sortedYears.map(year => {
@@ -1014,14 +1048,16 @@ function renderList(people) {
         const completeness = p => (p.internship ? 2 : 0) + (p.job && p.job.institution ? 1 : 0);
         shown.sort((a, b) => completeness(b) - completeness(a) || a.lastName.localeCompare(b.lastName));
         const complete = inPromo.filter(p => p.internship && p.job && p.job.institution).length;
+        // Ouverte si on l'a dépliée, ou si une recherche / un filtre de promotion est actif
+        const open = openYears.has(year) || filters.search || filters.promotion === year;
         return `
-            <div class="promo-block">
-                <div class="promo-header" style="border-color:${promoColor(year)}">
-                    <h3 style="color:${promoColor(year)}">${esc(promoLabel(year))}</h3>
+            <details class="promo-block" data-year="${year}"${open ? ' open' : ''}>
+                <summary class="promo-header" style="border-color:${promoColor(year)}">
+                    <h3 style="color:${promoColor(year)}"><i class="fas fa-chevron-right chevron"></i>${esc(promoLabel(year))}</h3>
                     <span>${inPromo.length} élèves · ${complete} fiche${complete > 1 ? 's' : ''} complète${complete > 1 ? 's' : ''}</span>
-                </div>
+                </summary>
                 <div class="people-grid">${shown.map(personCard).join('')}</div>
-            </div>`;
+            </details>`;
     }).join('');
 
     container.innerHTML = html || '<div class="card empty">Aucun résultat avec les filtres actuels.</div>';
@@ -1093,6 +1129,13 @@ function initFilters() {
         const btn = e.target.closest('[data-locate]');
         if (btn) locatePerson(Number(btn.dataset.locate));
     });
+
+    // Retenir les promotions dépliées / repliées ("toggle" ne remonte pas : écoute en capture)
+    document.getElementById('promotions-list').addEventListener('toggle', e => {
+        const year = e.target.dataset.year;
+        if (!year) return;
+        if (e.target.open) openYears.add(year); else openYears.delete(year);
+    }, true);
 }
 
 function showLoadError(error) {
